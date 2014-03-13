@@ -1,21 +1,23 @@
 package ocha.itolab.flowdiff.applet.flowdiff;
 
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import javax.imageio.ImageIO;
+import java.util.EventListener;
+
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.awt.GLCanvas;
-import ocha.itolab.flowdiff.core.data.*;
-import ocha.itolab.flowdiff.core.streamline.*;
+import javax.swing.JPanel;
+
+import ocha.itolab.flowdiff.core.data.Grid;
+import ocha.itolab.flowdiff.core.streamline.Streamline;
 
 
 /**
  * 描画領域を管理する
- * @author itot
+ * @author kaori
  */
 public class Canvas extends JPanel {
 
@@ -52,7 +54,7 @@ public class Canvas extends JPanel {
 		this.height = height;
 		setSize(width, height);
 		setColors(foregroundColor, backgroundColor);
-		dragMode = 1;
+		dragMode = 3;
 		dimMode = 2;
 	
 		glc = new GLCanvas();
@@ -94,7 +96,6 @@ public class Canvas extends JPanel {
 		trans = t;
 	}
 
-
 	/**
 	 * Gridをセットする
 	 */
@@ -128,7 +129,6 @@ public class Canvas extends JPanel {
 		sl2 = s;
 		drawer.setStreamline2(s);
 	}
-	
 	
 	/**
 	 * 再描画
@@ -215,6 +215,17 @@ public class Canvas extends JPanel {
 		trans.drag(x, y, width, height, dragMode);
 	}
 
+	/**
+	 * マウスホイールの動き
+	 * @param wheelRotation マウスホイールの方向(前：1, 後：-1)
+	 * @param aptitude 倍率
+	 */
+	public void wheel(int wheelRotation, int aptitude) {
+		int x = wheelRotation*aptitude;
+		int y = wheelRotation*aptitude;
+
+		trans.drag(x, y, width, height, 1);
+	}
 
 	/**
 	 * 線の太さをセットする

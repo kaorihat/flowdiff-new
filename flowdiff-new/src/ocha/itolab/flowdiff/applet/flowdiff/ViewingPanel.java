@@ -18,10 +18,10 @@ import ocha.itolab.flowdiff.core.streamline.*;
 
 public class ViewingPanel extends JPanel {
 
-	// TODO:ファイルのパスが固定になっている
-	static String url1 = "file:C:/itot/projects/VolVis/flowdiff/data/kassoro/ari/";
-	static String url2 = "file:C:/itot/projects/VolVis/flowdiff/data/kassoro/nashi/";
-
+	// 流れ場のファイルを読み込む（相対パス）
+	static String url1 = "file:../data/kassoro/ari/";
+	static String url2 = "file:../data/kassoro/nashi/";  	
+	  	
 	public JButton  openDataButton, viewResetButton, generateButton;
 	public JRadioButton viewRotateButton, viewScaleButton, viewShiftButton, easyButton, hardButton;
 	public JLabel xText, yText, zText;
@@ -58,10 +58,10 @@ public class ViewingPanel extends JPanel {
 		p1.add(openDataButton);
 		p1.add(viewResetButton);
 		ButtonGroup group1 = new ButtonGroup();
-		viewRotateButton = new JRadioButton("回転する");
+		viewRotateButton = new JRadioButton("回転する", true);
 		group1.add(viewRotateButton);
 		p1.add(viewRotateButton);
-		viewScaleButton = new JRadioButton("大きく・小さく", true);
+		viewScaleButton = new JRadioButton("大きく・小さく");
 		group1.add(viewScaleButton);
 		p1.add(viewScaleButton);
 		viewShiftButton = new JRadioButton("移動する");
