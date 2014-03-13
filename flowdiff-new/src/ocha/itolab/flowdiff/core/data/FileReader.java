@@ -39,6 +39,7 @@ public class FileReader {
 		read("U.txt", 3);
 		read("V.txt", 4);
 		read("W.txt", 5);
+		read("MSK.txt", 6);
 		
 		// Gridを返す
 		grid.finalize();
