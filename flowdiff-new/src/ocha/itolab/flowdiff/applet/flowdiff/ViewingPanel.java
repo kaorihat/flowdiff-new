@@ -312,6 +312,25 @@ public class ViewingPanel extends JPanel {
 		viewRotateButton.addActionListener(actionListener);
 		viewScaleButton.addActionListener(actionListener);
 		viewShiftButton.addActionListener(actionListener);
+		noneGridView.addActionListener(actionListener);
+		bothGridView.addActionListener(actionListener);
+		grid1View.addActionListener(actionListener);
+		grid2View.addActionListener(actionListener);
+		noneRotView.addActionListener(actionListener);
+		grid1RotView.addActionListener(actionListener);
+		grid2RotView.addActionListener(actionListener);
+		bothRotView.addActionListener(actionListener);
+		viewRotate0.addActionListener(actionListener);
+		viewRotate1.addActionListener(actionListener);
+		viewRotate2.addActionListener(actionListener);
+		viewRotate3.addActionListener(actionListener);
+		viewRotate4.addActionListener(actionListener);
+		viewRotate5.addActionListener(actionListener);
+		noneDiffView.addActionListener(actionListener);
+		showDiffAngView.addActionListener(actionListener);
+		showDiffLenView.addActionListener(actionListener);
+		showDiffVectorView.addActionListener(actionListener);
+		showDiffVectorViewLength.addActionListener(actionListener);
 	}
 
 	/**
@@ -322,6 +341,10 @@ public class ViewingPanel extends JPanel {
 		openDataButton.addActionListener(actionListener);
 		viewResetButton.addActionListener(actionListener);
 		generateStreamlineButton.addActionListener(actionListener);
+		viewBuildingButton.addActionListener(actionListener);
+		resetAllStreamlineButton.addActionListener(actionListener);
+		removeStreamlineButton.addActionListener(actionListener);
+		highlightStreamline.addActionListener(actionListener);
 	}
 
 	/**
@@ -336,14 +359,17 @@ public class ViewingPanel extends JPanel {
 	 * @param actionListener ActionListener
 	 */
 	public void addSliderListener(ChangeListener changeListener) {
+		vheight.addChangeListener(changeListener);
 		sliderX.addChangeListener(changeListener);
 		sliderY.addChangeListener(changeListener);
 		sliderZ.addChangeListener(changeListener);
+		sliderVH.addChangeListener(changeListener);
+		sliderDiff.addChangeListener(changeListener);
 	}
 	
 	/**
 	 * ボタンのアクションを検知するActionListener
-	 * @author itot
+	 * @author kaori
 	 */
 	class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
