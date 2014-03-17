@@ -51,6 +51,10 @@ public class ViewingPanel extends JPanel {
 	Grid grid1 = null;
 	Grid grid2 = null;
 	
+	/*button toggle flag*/
+	boolean viewVorticity_flag = false;//trueの時オン
+	boolean viewBuildingButton_flag = false;
+	
 	public ViewingPanel() {
 		// super class init
 		super();
@@ -412,7 +416,41 @@ public class ViewingPanel extends JPanel {
 				canvas.setStreamline2(sl2);
 				
 			}
-			
+			if(buttonPushed == resetAllStreamlineButton){
+				//StreamlineArray.clearAllList();
+				model.clear();
+			}
+			if(buttonPushed == removeStreamlineButton){
+
+				int[] index = list.getSelectedIndices();
+
+				if (!list.isSelectionEmpty()){
+					if (index.length > 0){
+						for (int i = index.length-1 ; i > -1 ; i--){
+							//StreamlineArray.clearList(index[i]);
+							model.remove(index[i]);
+						}
+					}
+				}
+			}
+
+			if(buttonPushed == highlightStreamline){
+				//ハイライトボタンをおした際、流線の色が変わる
+				int index[] = list.getSelectedIndices();
+
+				if (!list.isSelectionEmpty()){
+					//StreamlineArray.setStreamlineColor(index, !(StreamlineArray.color.get(index)));
+					if (index.length > 0){
+						for (int i = index.length-1 ; i > -1 ; i--){
+							//StreamlineArray.setStreamlineColor(index[i], !(StreamlineArray.color.get(index[i])));
+						}
+					}
+				}
+			}
+			if(buttonPushed == viewBuildingButton){
+				viewBuildingButton_flag =! viewBuildingButton_flag;
+				//canvas.setIsBuilding(viewBuildingButton_flag);
+			}
 			canvas.display();
 		}
 	}
