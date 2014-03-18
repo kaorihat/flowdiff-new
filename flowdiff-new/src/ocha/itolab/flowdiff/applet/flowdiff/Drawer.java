@@ -496,7 +496,7 @@ public class Drawer implements GLEventListener {
 		if(id == 2)
 			gl2.glColor3d(0.0, 1.0, 1.0);
 		gl2.glBegin(GL2.GL_LINE_STRIP);
-		for(int i = 0; i < sl.getNumVertex(); i++) {
+		for(int i = 0; i < sl.getNumVertex()-1; i++) {
 			double pos[] = sl.getPosition(i);
 			gl2.glVertex3d(pos[0], pos[1], pos[2]);
 		}
