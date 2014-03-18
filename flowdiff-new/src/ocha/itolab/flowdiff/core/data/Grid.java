@@ -9,8 +9,6 @@ public class Grid {
 	Element earray[];
 	double minmaxPos[] = new double[6]; // xmin, xmax, ymin, ymax, zmin, zmax
 	public int startPoint[] = new int [3]; // 始点となる格子の座標値を格納する
-	public int target[] = new int [3]; // 的となる格子の座標値を格納する
-	public int levelMode = 1; // 初期設定は「ちょいむず」レベル（「かなりむず」は0になる）
 	
 	
 	/**
@@ -88,15 +86,6 @@ public class Grid {
 		startPoint[2] = k;
 	}
 	
-	/**
-	 * 的の座標値を定める
-	 */
-	public void setTarget(int i, int j, int k) {
-		target[0] = i;
-		target[1] = j;
-		target[2] = k;
-	}	
-	
 
 	/**
 	 * データを読み終えたあとのまとめ作業
@@ -137,11 +126,5 @@ public class Grid {
 				}
 			}
 		}
-	}
-	
-	// targetとなっているelementとstreamlineの交差判定
-	public boolean intersectWithTarget(Streamline sl) {
-		int targetId = calcElementId(target[0],target[1], target[2]);
-		return getElement(targetId).intersect(targetId, sl, levelMode);
 	}
 }
