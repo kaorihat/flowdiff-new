@@ -40,8 +40,8 @@ public class Transformer {
 			else
 				viewRotate[i] = 0.0;
 		}
-		viewScaleX = viewScaleBakX = 5.0; // 箱の大きさの初期値
-		viewScaleY = viewScaleBakY = 5.0;
+		viewScaleX = viewScaleBakX = 4.0; // 箱の大きさの初期値
+		viewScaleY = viewScaleBakY = 4.0;
 		viewShift[0] = viewShiftBak[0] = 0.0;
 		viewShift[1] = viewShiftBak[1] = 0.0;
 		viewShift[2] = viewShiftBak[2] = 0.0;
