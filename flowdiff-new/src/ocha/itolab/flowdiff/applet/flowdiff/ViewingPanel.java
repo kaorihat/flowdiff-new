@@ -407,10 +407,10 @@ public class ViewingPanel extends JPanel {
 				eIjk[1] = sliderY.getValue() * numg[1] / 100;
 				eIjk[2] = sliderZ.getValue() * numg[2] / 100;
 				StreamlineGenerator.generate(grid1, sl1, eIjk, null);
-				System.out.println("    target:" + grid1.intersectWithTarget(sl1)); 
+				//System.out.println("    target:" + grid1.intersectWithTarget(sl1)); 
 				canvas.setStreamline1(sl1);
 				StreamlineGenerator.generate(grid2, sl2, eIjk, null);
-				System.out.println("    target:" + grid1.intersectWithTarget(sl2)); 
+				//System.out.println("    target:" + grid1.intersectWithTarget(sl2)); 
 				canvas.setStreamline2(sl2);
 				
 			}
@@ -498,11 +498,12 @@ public class ViewingPanel extends JPanel {
 			
 	/**
 	 * ラジオボタンのアクションを検知するActionListener
-	 * @author itot
+	 * @author kaori
 	 */
 	class RadioButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JRadioButton buttonPushed = (JRadioButton) e.getSource();
+			//マウスドラッグしたときの挙動。移動・回転・拡大縮小
 			if (buttonPushed == viewRotateButton) {
 				canvas.setDragMode(3);
 			}
@@ -512,6 +513,25 @@ public class ViewingPanel extends JPanel {
 			if (buttonPushed == viewShiftButton) {
 				canvas.setDragMode(2);
 			}
+			//方向に関する 上下、ななめ、真横
+			if (buttonPushed == viewRotate0) {
+				canvas.setLookAt(0);
+			}
+			if (buttonPushed == viewRotate1) {
+				canvas.setLookAt(1);
+			}
+			if (buttonPushed == viewRotate2) {
+				canvas.setLookAt(2);
+			}
+			if (buttonPushed == viewRotate3) {
+				canvas.setLookAt(3);
+			}
+			if (buttonPushed == viewRotate4) {
+				canvas.setLookAt(4);
+			}
+			if (buttonPushed == viewRotate5) {
+				canvas.setLookAt(5);
+			}
 
 			canvas.display();
 		}
@@ -519,7 +539,7 @@ public class ViewingPanel extends JPanel {
 
 	/**
 	 * チェックボックスのアクションを検知するItemListener
-	 * @author itot
+	 * @author kaori
 	 */
 	class CheckBoxListener implements ItemListener {
 		public void itemStateChanged(ItemEvent e) {
@@ -532,7 +552,7 @@ public class ViewingPanel extends JPanel {
 
 	/**
 	 * スライダのアクションを検知するActionListener
-	 * @author itot
+	 * @author kaori
 	 */
 	class SliderListener implements ChangeListener {
 		public void stateChanged(ChangeEvent e) {

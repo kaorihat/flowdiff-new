@@ -283,6 +283,13 @@ public class Canvas extends JPanel {
 	public void viewDefault() {
 		trans.setDefaultValue();
 	}
+	
+	/**
+	 +	 * 視点の位置を切り替える
+	 +	 */
+	public void setLookAt(int num) {
+		 trans.setLookAt(num);
+	 }
 
 	/**
 	 * 画面上の特定物体をピックする
