@@ -144,7 +144,7 @@ public class Canvas extends JPanel {
 		if (glAD == null) return;
 				
 		drawer.getGLAutoDrawable();
-		drawer.setWindowSize(width, height);
+		//drawer.setWindowSize(width, height);
 		glAD.display();
 
 	}
