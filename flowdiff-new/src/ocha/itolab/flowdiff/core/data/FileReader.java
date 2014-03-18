@@ -4,6 +4,8 @@ import java.util.*;
 import java.io.*;
 import java.net.URL;
 
+
+import ocha.itolab.flowdiff.applet.flowdiff.PropertyLoader;
 import ocha.itolab.flowdiff.applet.flowdiff.ViewingPanel;
 
 
@@ -13,22 +15,30 @@ public class FileReader {
 	static String url = "";
 	
 	// TODO: 格子点数が固定になっている
-	static int nx = 151, ny = 85, nz = 101;
+	static int nx = 0, ny = 0, nz = 0;
+	
 	
 	/**
 	 * ファイルを読んでGridを得る
+	 * @throws IOException 
 	 */
 	public static Grid getGrid(String u) {
 		url = u;
-		Random randX = new Random();
-		Random randY = new Random();
-		Random randZ = new Random();
 		
 		ViewingPanel vp = new ViewingPanel();
-
+		PropertyLoader loader;
+		try {
+			loader = new PropertyLoader();
+			nx = Integer.parseInt(loader.getValue("nx"));
+			ny = Integer.parseInt(loader.getValue("ny"));
+			nz = Integer.parseInt(loader.getValue("nz"));
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		
 		// Gridを確保する
 		grid = new Grid();
-		grid.setTarget(randX.nextInt(69), randY.nextInt(19), randZ.nextInt(29));
 		grid.setStartPoint(vp.sliderX.getValue(), vp.sliderY.getValue(), vp.sliderZ.getValue());
 		grid.setNumGridPoint(nx, ny, nz);
 
@@ -89,6 +99,9 @@ public class FileReader {
 					break;
 				case 5:
 					gp.setVector(vec[0], vec[1], value);
+					break;
+				case 6:
+					gp.setMsk(value);
 					break;
 				}
 			}

@@ -20,7 +20,7 @@ public class ViewingPanel extends JPanel {
 
 	// 流れ場のファイルを読み込む（相対パス）
 	static String url1 = "file:../data/kassoro/ari/";
-	static String url2 = "file:../data/kassoro/nashi/";  	
+	static String url2 = "file:../data/kassoro/nashi/";
 	
 	/* パネルのボタン・ラジオボタン・スライダ類 */
 	public JButton  openDataButton, viewResetButton, viewBuildingButton,generateStreamlineButton, viewVectorButton,
@@ -87,7 +87,7 @@ public class ViewingPanel extends JPanel {
 		viewRotate0 = new JRadioButton("斜め", true);//最初にチェックが入っている
 		group4.add(viewRotate0);
 		p1.add(viewRotate0);
-		viewRotate1 = new JRadioButton("真上",true);
+		viewRotate1 = new JRadioButton("真上");
 		group4.add(viewRotate1);
 		p1.add(viewRotate1);
 		viewRotate2 = new JRadioButton("正面");
@@ -257,8 +257,6 @@ public class ViewingPanel extends JPanel {
 		p6.add(diffText);
 
 		
-
-		
 		//
 		// パネル群のレイアウト
 		//
@@ -334,7 +332,7 @@ public class ViewingPanel extends JPanel {
 		showDiffAngView.addActionListener(actionListener);
 		showDiffLenView.addActionListener(actionListener);
 		showDiffVectorView.addActionListener(actionListener);
-		showDiffVectorViewLength.addActionListener(actionListener);
+		//showDiffVectorViewLength.addActionListener(actionListener);
 	}
 
 	/**
