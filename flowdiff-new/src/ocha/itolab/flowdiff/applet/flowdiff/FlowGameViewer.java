@@ -3,7 +3,7 @@ package ocha.itolab.flowdiff.applet.flowdiff;
 import java.awt.*;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
-
+//現在使われておりません
 public class FlowGameViewer extends JApplet {
 
 	// GUI element
