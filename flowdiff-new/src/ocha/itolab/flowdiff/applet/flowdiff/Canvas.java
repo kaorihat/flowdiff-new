@@ -129,7 +129,12 @@ public class Canvas extends JPanel {
 		sl2 = s;
 		drawer.setStreamline2(s);
 	}
-	
+	/**
+	 * mskをセットする
+	 */
+	public void setMsk(boolean m){
+		drawer.setMsk(m);
+	}
 	/**
 	 * 再描画
 	 */

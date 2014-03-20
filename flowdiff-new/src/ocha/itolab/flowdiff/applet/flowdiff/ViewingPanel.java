@@ -447,7 +447,7 @@ public class ViewingPanel extends JPanel {
 			}
 			if(buttonPushed == viewBuildingButton){
 				viewBuildingButton_flag =! viewBuildingButton_flag;
-				//canvas.setIsBuilding(viewBuildingButton_flag);
+				canvas.setMsk(viewBuildingButton_flag);
 			}
 			canvas.display();
 		}

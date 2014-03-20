@@ -1,6 +1,7 @@
 package ocha.itolab.flowdiff.applet.flowdiff;
 
 
+import java.io.IOException;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.awt.image.BufferedImage;
@@ -58,6 +59,9 @@ public class Drawer implements GLEventListener {
 
 	Grid grid1 = null, grid2 = null;
 	Streamline sl1 = null, sl2 = null;
+	boolean msk = false;
+	
+	PropertyLoader loader;
 	
 	/**
 	 * Constructor
@@ -140,7 +144,12 @@ public class Drawer implements GLEventListener {
 	public void setStreamline2(Streamline s) {
 		sl2 = s;
 	}
-	
+	/**
+	 * mskをセットする
+	 */
+	public void setMsk(boolean b){
+		msk = b;
+	}
 	/**
 	 * 描画領域のサイズを設定する
 	 * 
@@ -209,6 +218,13 @@ public class Drawer implements GLEventListener {
 		glu = new GLU();
 		glut = new GLUT();
 		this.glAD = drawable;
+		
+		try {
+			loader = new PropertyLoader();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 		gl.glEnable(GL.GL_RGBA);
 		gl.glEnable(GL2.GL_DEPTH);
@@ -284,6 +300,7 @@ public class Drawer implements GLEventListener {
 		gl2.glGetDoublev(GL2.GL_PROJECTION_MATRIX, projection);
 
 		drawBox();
+		drawMsk(grid1,msk);
 		
 		if(grid1 != null && sl1 != null) {
 			drawStartGrid(grid1);
@@ -501,6 +518,39 @@ public class Drawer implements GLEventListener {
 			gl2.glVertex3d(pos[0], pos[1], pos[2]);
 		}
 		gl2.glEnd();
+	}
+	
+	void drawMsk(Grid g, boolean b){
+		if(grid1 == null) return;
+		
+		if(b){
+			//プロパティファイルから値を取得（msk_value,stringの配列）。その後にdouble型へ変換
+			String[] value_buff = loader.getValue("msk_value").split(",");
+			String[] color_buff = loader.getValue("msk_color").split(",");
+			double[] msk_value = new double[value_buff.length];
+			double[][] msk_color = new double[color_buff.length][3];
+			//valueをdouble型に変換。colorを16進数からdouble型配列に変換(1.0 0.0 0.0)など
+			for (int i = 0; i < msk_value.length; i++) {
+				msk_value[i] = Double.parseDouble(value_buff[i]);
+				msk_color[i][0] = Integer.decode( "0x" + color_buff[i].trim().substring(0, 2)) / 255.0;
+				msk_color[i][1] = Integer.decode( "0x" + color_buff[i].trim().substring(2, 4)) / 255.0;
+				msk_color[i][2] = Integer.decode( "0x" + color_buff[i].trim().substring(4, 6)) / 255.0;
+			}
+			
+			
+			for (int i = 0; i < g.getNumGridPoint()[0]*g.getNumGridPoint()[1]*g.getNumGridPoint()[2]; i++) {
+				for (int j = 0 ; j < msk_value.length; j++) {
+					if(g.getGridPoint(i).getMsk()== msk_value[j]){
+						gl2.glColor3d(msk_color[j][0], msk_color[j][1], msk_color[j][2]);
+						gl2.glPointSize(1.0f);
+						gl2.glBegin(GL.GL_POINTS);
+						gl2.glVertex3d(g.getGridPoint(i).getPosition()[0], g.getGridPoint(i).getPosition()[1], g.getGridPoint(i).getPosition()[2]);
+						gl2.glEnd();
+					}
+				}	
+			}
+			
+		}
 	}
 
 	@Override
