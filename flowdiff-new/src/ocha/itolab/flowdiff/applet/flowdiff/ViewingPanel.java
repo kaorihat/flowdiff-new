@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -19,8 +20,9 @@ import ocha.itolab.flowdiff.core.streamline.*;
 public class ViewingPanel extends JPanel {
 
 	// 流れ場のファイルを読み込む（相対パス）
-	static String url1 = "file:../data/kassoro/ari/";
-	static String url2 = "file:../data/kassoro/nashi/";
+	static String url1;
+	static String url2;
+	PropertyLoader loader;
 	
 	/* パネルのボタン・ラジオボタン・スライダ類 */
 	public JButton  openDataButton, viewResetButton, viewBuildingButton,generateStreamlineButton, viewVectorButton,
@@ -59,6 +61,16 @@ public class ViewingPanel extends JPanel {
 		// super class init
 		super();
 		setSize(200, 800);
+		
+		// 流れ場のファイルを読み込む（相対パス,propertiesファイルからパスを読み込む）
+		try {
+			loader = new PropertyLoader();
+			url1 = loader.getValue("url1");
+			url2 = loader.getValue("url2");
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 		JTabbedPane tabbedpane = new JTabbedPane();
 		
@@ -446,6 +458,7 @@ public class ViewingPanel extends JPanel {
 				}
 			}
 			if(buttonPushed == viewBuildingButton){
+				//建物の表示有る無しを切り替える
 				viewBuildingButton_flag =! viewBuildingButton_flag;
 				canvas.setMsk(viewBuildingButton_flag);
 			}
