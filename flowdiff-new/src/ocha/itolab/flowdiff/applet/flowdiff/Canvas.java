@@ -30,6 +30,7 @@ public class Canvas extends JPanel {
 	Grid grid1, grid2;
 	Streamline sl1, sl2;
 	ArrayList<Streamline> arrsl1, arrsl2;//流線リスト
+	ArrayList<int[]> depl;//流線の始点リスト
 	
 	boolean isMousePressed = false, isAnnotation = true, 
 		isImage = true, isWireframe = true;
@@ -141,6 +142,15 @@ public class Canvas extends JPanel {
 	public void setStreamlineArr2(ArrayList<Streamline> streamline) {
 		arrsl2 = streamline;
 		drawer.setStreamlineArr2(streamline);
+	}
+	/**
+	 * 流線の始点リストをセット
+	 * @param allDeperture
+	 */
+	public void setStreamlineDepertures(ArrayList<int[]> allDeperture) {
+		 // TODO 自動生成されたメソッド・スタブ
+		depl = allDeperture;
+		drawer.setStreamlineDepertures(allDeperture);
 	}
 	/**
 	 * mskをセットする

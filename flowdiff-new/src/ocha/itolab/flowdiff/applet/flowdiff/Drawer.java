@@ -61,6 +61,7 @@ public class Drawer implements GLEventListener {
 	Grid grid1 = null, grid2 = null;
 	Streamline sl1 = null, sl2 = null;
 	ArrayList<Streamline> arrsl1 = null, arrsl2 = null;//流線リスト
+	ArrayList<int[]> deplist = null;//流線の始点のidリスト 
 	boolean msk = false;
 	
 	PropertyLoader loader;
@@ -155,6 +156,14 @@ public class Drawer implements GLEventListener {
 	}
 	public void setStreamlineArr2(ArrayList<Streamline> streamline) {
 		arrsl2 = streamline;
+	}
+	/**
+	 * 流線始点のリストをセットする
+	 * @param allDeperture
+	 */
+	public void setStreamlineDepertures(ArrayList<int[]> allDeperture) {
+		// TODO 自動生成されたメソッド・スタブ
+		deplist = allDeperture;
 	}
 	/**
 	 * mskをセットする
@@ -316,6 +325,7 @@ public class Drawer implements GLEventListener {
 		
 		if(grid1 != null && arrsl1 != null) {
 			drawStartGrid(grid1);
+			drawStreamlineStart(deplist);
 			drawStreamlineArr(arrsl1, 1);
 			//drawStreamline(sl1, 1);
 			//drawEndGrid(grid1);
@@ -444,6 +454,37 @@ public class Drawer implements GLEventListener {
 		gl2.glEnd();
 	}
 	
+	/**
+	 * 始点を描画する（エレメントの中心を描画）
+	 */
+	void drawStartGrid(Grid grid, int[] dep){
+		if(grid == null) return;
+		int i, j, k;
+		double[] pos = new double[3];
+		
+		i = dep[0];
+		j = dep[1];
+		k = dep[2];
+		//エレメントの中心座標を描画する
+		pos = grid.calcElementCenter(i, j, k);
+		
+		gl2.glColor3d(1.0, 1.0, 1.0);
+		gl2.glBegin(GL.GL_POINTS);
+		gl2.glVertex3d(pos[0], pos[1], pos[2]);
+		gl2.glEnd();
+	}
+	/**
+	 * * 流線の始点リストを描画する
+	 *  * @param deplist
+	 */
+	void drawStreamlineStart(ArrayList<int[]> deplist){
+		if(grid1 == null) return;
+		//始点を描画
+		for(int i=0; i<deplist.size(); i++){
+			int[] dep = deplist.get(i);
+			drawStartGrid(grid1,dep);
+		}
+	}
 	
 	/**
 	 * 流線の行き着いた先の格子を描く

@@ -418,6 +418,8 @@ public class ViewingPanel extends JPanel {
 				eIjk[0] = sliderX.getValue() * numg[0] / 100;
 				eIjk[1] = sliderY.getValue() * numg[1] / 100;
 				eIjk[2] = sliderZ.getValue() * numg[2] / 100;
+				StreamlineArray.addDeperture(eIjk);
+				canvas.setStreamlineDepertures(StreamlineArray.getAllDeperture());
 				StreamlineGenerator.generate(grid1, sl1, eIjk, null);
 				//System.out.println("    target:" + grid1.intersectWithTarget(sl1)); 
 				//canvas.setStreamline1(sl1);
@@ -431,8 +433,10 @@ public class ViewingPanel extends JPanel {
 				StreamlineArray.addList2(sl2);
 				canvas.setStreamlineArr2(StreamlineArray.getAllList2());
 			}
-			if(buttonPushed == resetAllStreamlineButton){
-				//StreamlineArray.clearAllList();
+			if(buttonPushed == resetAllStreamlineButton){//流線を全部消す
+				StreamlineArray.clearAllDeperture();
+				StreamlineArray.clearAllList1();
+				StreamlineArray.clearAllList2();
 				model.clear();
 			}
 			if(buttonPushed == removeStreamlineButton){
