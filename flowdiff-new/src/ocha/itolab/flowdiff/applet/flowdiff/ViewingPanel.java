@@ -420,11 +420,16 @@ public class ViewingPanel extends JPanel {
 				eIjk[2] = sliderZ.getValue() * numg[2] / 100;
 				StreamlineGenerator.generate(grid1, sl1, eIjk, null);
 				//System.out.println("    target:" + grid1.intersectWithTarget(sl1)); 
-				canvas.setStreamline1(sl1);
+				//canvas.setStreamline1(sl1);
+				//流線リストを表示する
+				StreamlineArray.addList1(sl1);
+				canvas.setStreamlineArr1(StreamlineArray.getAllList1());
 				StreamlineGenerator.generate(grid2, sl2, eIjk, null);
 				//System.out.println("    target:" + grid1.intersectWithTarget(sl2)); 
-				canvas.setStreamline2(sl2);
-				
+				//canvas.setStreamline2(sl2);
+				//流線リストを表示する
+				StreamlineArray.addList2(sl2);
+				canvas.setStreamlineArr2(StreamlineArray.getAllList2());
 			}
 			if(buttonPushed == resetAllStreamlineButton){
 				//StreamlineArray.clearAllList();

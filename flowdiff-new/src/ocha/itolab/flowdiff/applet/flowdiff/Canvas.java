@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.EventListener;
 
 import javax.media.opengl.GLAutoDrawable;
@@ -28,6 +29,7 @@ public class Canvas extends JPanel {
 	GLCanvas glc;
 	Grid grid1, grid2;
 	Streamline sl1, sl2;
+	ArrayList<Streamline> arrsl1, arrsl2;//流線リスト
 	
 	boolean isMousePressed = false, isAnnotation = true, 
 		isImage = true, isWireframe = true;
@@ -128,6 +130,17 @@ public class Canvas extends JPanel {
 	public void setStreamline2(Streamline s) {
 		sl2 = s;
 		drawer.setStreamline2(s);
+	}
+	/**
+	 * streamlineリストをセット
+	 */
+	public void setStreamlineArr1(ArrayList<Streamline> streamline) {
+		arrsl1 = streamline;
+		drawer.setStreamlineArr1(streamline);
+	}
+	public void setStreamlineArr2(ArrayList<Streamline> streamline) {
+		arrsl2 = streamline;
+		drawer.setStreamlineArr2(streamline);
 	}
 	/**
 	 * mskをセットする

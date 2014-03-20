@@ -4,6 +4,7 @@ package ocha.itolab.flowdiff.applet.flowdiff;
 import java.io.IOException;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import javax.media.opengl.*;
 import javax.media.opengl.awt.GLCanvas;
@@ -59,6 +60,7 @@ public class Drawer implements GLEventListener {
 
 	Grid grid1 = null, grid2 = null;
 	Streamline sl1 = null, sl2 = null;
+	ArrayList<Streamline> arrsl1 = null, arrsl2 = null;//流線リスト
 	boolean msk = false;
 	
 	PropertyLoader loader;
@@ -143,6 +145,16 @@ public class Drawer implements GLEventListener {
 	 */
 	public void setStreamline2(Streamline s) {
 		sl2 = s;
+	}
+	/**
+	 * streamlineのリストをセットする
+	 * @param streamline
+	 */
+	public void setStreamlineArr1(ArrayList<Streamline> streamline) {
+		arrsl1 = streamline;
+	}
+	public void setStreamlineArr2(ArrayList<Streamline> streamline) {
+		arrsl2 = streamline;
 	}
 	/**
 	 * mskをセットする
@@ -302,14 +314,16 @@ public class Drawer implements GLEventListener {
 		drawBox();
 		drawMsk(grid1,msk);
 		
-		if(grid1 != null && sl1 != null) {
+		if(grid1 != null && arrsl1 != null) {
 			drawStartGrid(grid1);
-			drawStreamline(sl1, 1);
+			drawStreamlineArr(arrsl1, 1);
+			//drawStreamline(sl1, 1);
 			//drawEndGrid(grid1);
 		}
-		if(grid2 != null && sl2 != null) {
+		if(grid2 != null && arrsl2 != null) {
 			drawStartGrid(grid2);
-			drawStreamline(sl2, 2);
+			//drawStreamline(sl2, 2);
+			drawStreamlineArr(arrsl2, 2);
 			//drawEndGrid(grid2);
 		}
 		
@@ -520,6 +534,34 @@ public class Drawer implements GLEventListener {
 		gl2.glEnd();
 	}
 	
+	/**
+	 * 流線リストを描く
+	 * @param arrsl
+	 * @param id
+	 */
+	void drawStreamlineArr(ArrayList<Streamline> arrsl, int id) {
+		for(int i=0;i<arrsl.size();i++){
+			Streamline sl = arrsl.get(i);
+			int numvertex = sl.getNumVertex();
+			if(id == 1)
+				//grid1ピンク
+				gl2.glColor3d(1.0, 0.0, 1.0);
+			if(id == 2)
+				//grid2シアン
+				gl2.glColor3d(0.0, 1.0, 1.0);
+			gl2.glBegin(GL2.GL_LINE_STRIP);
+			for(int j = 0; j < numvertex-1; j++) {
+				double pos[] = sl.getPosition(j);
+				gl2.glVertex3d(pos[0], pos[1], pos[2]);
+			}
+			gl2.glEnd();
+		}
+	}
+	/**
+	 * 建物の描画（プロパティファイルから種別と色を取得）
+	 * @param g
+	 * @param b
+	 */
 	void drawMsk(Grid g, boolean b){
 		if(grid1 == null) return;
 		

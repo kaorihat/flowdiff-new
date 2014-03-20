@@ -3,6 +3,9 @@ package ocha.itolab.flowdiff.core.streamline;
 import java.util.ArrayList;
 
 public class StreamlineArray {
+	/*
+	 * 流線の集合を記録するクラス
+	 */
 
 	public static ArrayList<Streamline> streamlines1 = new ArrayList<Streamline>();//流線の集合リスト
 	public static ArrayList<Streamline> streamlines2 = new ArrayList<Streamline>();
